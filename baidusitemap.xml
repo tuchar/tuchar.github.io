@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/02/13/the-meaning-of-this-blog/</loc>
+    <lastmod>2018-02-17T15:04:50.821Z</lastmod>
+    <data>
+        <display>
+        <title>我为什么要建这样一个blog</title>
+        <pubTime>2018-02-13T13:28:22.000Z</pubTime>
+        
+        <tag>扯淡</tag>
+         
+        <tag>Markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="Essays" url="http://yoursite.com/categories/Essays/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/02/17/hello-world/</loc>
+    <lastmod>2018-02-17T11:59:38.803Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World 涂涂大人</title>
+        <pubTime>2018-02-17T09:07:04.383Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
