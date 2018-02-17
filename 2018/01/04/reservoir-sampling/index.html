@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>蓄水池抽样证明以及例题 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言蓄水池抽样在kmeans算法中有所应用，诸如Cloudera ML的分布式蓄水池抽样和加权分布式蓄水池抽样。">
+<meta name="keywords" content="算法,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓄水池抽样证明以及例题">
+<meta property="og:url" content="http://yoursite.com/2018/01/04/reservoir-sampling/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言蓄水池抽样在kmeans算法中有所应用，诸如Cloudera ML的分布式蓄水池抽样和加权分布式蓄水池抽样。">
+<meta property="og:updated_time" content="2018-01-13T13:08:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蓄水池抽样证明以及例题">
+<meta name="twitter:description" content="前言蓄水池抽样在kmeans算法中有所应用，诸如Cloudera ML的分布式蓄水池抽样和加权分布式蓄水池抽样。">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-reservoir-sampling" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/04/reservoir-sampling/" class="article-date">
+  <time datetime="2018-01-04T13:44:51.000Z" itemprop="datePublished">2018-01-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Codes/">Codes</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      蓄水池抽样证明以及例题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><h2 id="intro">前言</h2>蓄水池抽样在kmeans算法中有所应用，诸如Cloudera ML的分布式蓄水池抽样和加权分布式蓄水池抽样。<p></p>
+<a id="more"></a>
+<hr>
+<h3 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h3><ol>
+<li>先选取数据流中的前k个元素，保存在集合A中；</li>
+<li>从第j（k + 1 &lt;= j &lt;= n）个元素开始，每次先以概率p = k/j选择是否让第j个元素留下。若j被选中，则从A中随机选择一个元素并用该元素j替换它；否则直接淘汰该元素；</li>
+<li>重复步骤2直到结束，最后集合A中剩下的就是保证随机抽取的k个元素。</li>
+</ol>
+<hr>
+<h3 id="两个leetcode例题"><a href="#两个leetcode例题" class="headerlink" title="两个leetcode例题"></a>两个leetcode例题</h3><p>转载自<a href="https://www.jianshu.com/p/63f6cf19923d" target="_blank" rel="noopener">这里</a></p>
+<ul>
+<li>Linked List Random Node</li>
+</ul>
+<p>Given a singly linked list, return a random node’s value from the linked list. Each node must have the same probability of being chosen.</p>
+<p>Follow up:<br>What if the linked list is extremely large and its length is unknown to you? Could you solve this efficiently without using extra space?</p>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Init a singly linked list [1,2,3].</span></span><br><span class="line">ListNode head = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">head.next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">head.next.next = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line">Solution solution = <span class="keyword">new</span> Solution(head);</span><br><span class="line"></span><br><span class="line"><span class="comment">// getRandom() should return either 1, 2, or 3 randomly. Each element should have equal probability of returning.</span></span><br><span class="line">solution.getRandom();</span><br></pre></td></tr></table></figure>
+<p>Solution:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Random r;</span><br><span class="line">    ListNode head;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Solution</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.r = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">this</span>.head = head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRandom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">        ListNode nodeVal = head;</span><br><span class="line">        ListNode curr = head;</span><br><span class="line">        <span class="keyword">while</span> (curr != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (r.nextInt(count++) == <span class="number">0</span>) &#123;</span><br><span class="line">                nodeVal = curr;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nodeVal.val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Random Pick Index</li>
+</ul>
+<p>Given an array of integers with possible duplicates, randomly output the index of a given target number. You can assume that the given target number must exist in the array.</p>
+<p>Note:<br>The array size can be very large. Solution that uses too much extra space will not pass the judge.</p>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>&#125;;</span><br><span class="line">Solution solution = <span class="keyword">new</span> Solution(nums);</span><br><span class="line"></span><br><span class="line"><span class="comment">// pick(3) should return either index 2, 3, or 4 randomly. Each index should have equal probability of returning.</span></span><br><span class="line">solution.pick(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// pick(1) should return 0. Since in the array only nums[0] is equal to 1.</span></span><br><span class="line">solution.pick(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>Solution:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] nums;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Solution</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.nums = nums;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pick</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> index = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == target) &#123;</span><br><span class="line">                <span class="keyword">if</span> (random.nextInt(count++) == <span class="number">0</span>) &#123;</span><br><span class="line">                    index = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="kmeans中的蓄水池抽样"><a href="#kmeans中的蓄水池抽样" class="headerlink" title="kmeans中的蓄水池抽样"></a>kmeans中的蓄水池抽样</h3><p>转载自<a href="http://blog.jobbole.com/42550/" target="_blank" rel="noopener">这里</a></p>
+<p><strong>Cloudera ML</strong>： 基于hadoop的ML</p>
+<p>分布式蓄水池抽样是Greg讨论的第一种算法。可以从前面的讨论中发现，基本的蓄水池抽样要求对数据流进行顺序读取。要进行容量为k的分布式蓄水池抽样（前面讨论的容量都为1）我们使用mapreduce 模拟sql中的ORDER BY RAND (随机抽取)。对于集合中的每一个元素，都产生一个0-1的随机数，之后选取随机值最大的前k个元素。这种方法在对大数据集进行分层抽样的时候非常管用。这里每一个分层都都是一些分类变量如性别，年龄，地理信息等的组合。注意如果输入的数据集分布极端的不均匀，那么抽样可能不能覆盖到所有的层级。为了对每种分类的组合进行抽样，cloudera ML 提供了sample命令，它可以操作纯文本或者hive中的表。</p>
+<p>第二个算法更加好玩：加权分布式蓄水池抽样。这里集合中的数据是有权重的，算法希望数据被抽样选中的概率和该数据的权重成比例。实际上这个问题之前并不一定有解，直到2005年pavlos efraimidis和paul spirakis的论文《weighted random sampling with a reservoir》。他们的解法既简单又优雅，基本思想和上面的分布式蓄水池抽样一致：<code>对于每个数据计算一个0-1的值R，并求r的n次方根作为该数据的新的R值。</code>这里的n就是该数据的权重。最终算法返回前k个R值最高的数据然后返回。根据计算规则，权重越大的数据计算所得的R值越接近1，所以越有可能被返回。</p>
+<p>在cloudera ML项目中，为了更好地使用k-means++算法（K-均值++算法），我们会首先使用加权的蓄水池抽样算法对输入数据进行抽样。ksketch命令会为k-means++算法进行初始化–在输入数据上进行迭代操作，选择样本抽样。每次选取过程，数据被选入样本的概率和该数据与当前样本中最短距离节点的距离成比例。通过使用加权的蓄水池抽样算法，只需扫描数据一遍就能决定样本组成（一般方法需要首先遍历一次以计算出聚类的总代价，之后第二次遍历根据第一次的计算结果进行样本选择）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/04/reservoir-sampling/" data-id="cjdrh9k4p003xmct347srhwgs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/12/auto-million-heroes/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          百万英雄答题辅助(记一次成功的pull request)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/18/binary-tree/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于二叉树的算法题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Codes/">Codes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Essays/">Essays</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kaggle/">Kaggle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSM/">GSM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gnome3/">Gnome3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IPsec/">IPsec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LTE/">LTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sublime/">Sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U-disk/">U-disk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XGBoost/">XGBoost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/storage/">storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扯淡/">扯淡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/GSM/" style="font-size: 10px;">GSM</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Gnome3/" style="font-size: 10px;">Gnome3</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/IPsec/" style="font-size: 10px;">IPsec</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LTE/" style="font-size: 10px;">LTE</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 12.5px;">Markdown</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Sublime/" style="font-size: 10px;">Sublime</a> <a href="/tags/System/" style="font-size: 10px;">System</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/U-disk/" style="font-size: 10px;">U-disk</a> <a href="/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a> <a href="/tags/VPN/" style="font-size: 12.5px;">VPN</a> <a href="/tags/XGBoost/" style="font-size: 10px;">XGBoost</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/storage/" style="font-size: 10px;">storage</a> <a href="/tags/扯淡/" style="font-size: 15px;">扯淡</a> <a href="/tags/爬虫/" style="font-size: 17.5px;">爬虫</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/17/hello-world/">Hello World 涂涂大人</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/12/auto-million-heroes/">百万英雄答题辅助(记一次成功的pull request)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/04/reservoir-sampling/">蓄水池抽样证明以及例题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/18/binary-tree/">关于二叉树的算法题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/16/dynamic-programming/">动态规划的三个例子</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -5,14 +5,24 @@
   
 
   
-  <title>Archives: 2018 | Hexo</title>
+  <title>记录962项目的零碎 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="前言项目是要保密的，所以只是记录一些自己项目过程里的零零碎碎。">
+<meta name="keywords" content="VPN,LTE,GSM,IPsec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录962项目的零碎">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/about-962-project/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言项目是要保密的，所以只是记录一些自己项目过程里的零零碎碎。">
+<meta property="og:image" content="http://o7myibfc7.bkt.clouddn.com/strongswan.png">
+<meta property="og:image" content="http://o7myibfc7.bkt.clouddn.com/vpn1.png">
+<meta property="og:image" content="http://o7myibfc7.bkt.clouddn.com/vpn2.png">
+<meta property="og:image" content="http://o7myibfc7.bkt.clouddn.com/TB29215.jpg?imageView2/3/w/300/h/150/q/90">
+<meta property="og:updated_time" content="2018-01-13T13:08:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="记录962项目的零碎">
+<meta name="twitter:description" content="前言项目是要保密的，所以只是记录一些自己项目过程里的零零碎碎。">
+<meta name="twitter:image" content="http://o7myibfc7.bkt.clouddn.com/strongswan.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,78 +69,92 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/02/17/hello-world/" class="archive-article-date">
-  <time datetime="2018-02-17T09:07:04.383Z" itemprop="datePublished">Feb 17</time>
+        <section id="main"><article id="post-about-962-project" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/11/about-962-project/" class="article-date">
+  <time datetime="2016-10-11T14:22:34.000Z" itemprop="datePublished">2016-10-11</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Notes/">Notes</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/17/hello-world/">Hello World 涂涂大人</a>
+    <h1 class="article-title" itemprop="name">
+      记录962项目的零碎
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/12/auto-million-heroes/" class="archive-article-date">
-  <time datetime="2018-01-12T07:36:29.000Z" itemprop="datePublished">Jan 12</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/12/auto-million-heroes/">百万英雄答题辅助(记一次成功的pull request)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/04/reservoir-sampling/" class="archive-article-date">
-  <time datetime="2018-01-04T13:44:51.000Z" itemprop="datePublished">Jan 4</time>
-</a>
+        <p></p><h2 id="intro">前言</h2>项目是要保密的，所以只是记录一些自己项目过程里的零零碎碎。<p></p>
+<a id="more"></a>
+<hr>
+<h3 id="对开源IPsec-VPN的研究"><a href="#对开源IPsec-VPN的研究" class="headerlink" title="对开源IPsec VPN的研究"></a>对开源IPsec VPN的研究</h3><h4 id="StrongSwan-vs-OpenSwan-vs-Libreswan"><a href="#StrongSwan-vs-OpenSwan-vs-Libreswan" class="headerlink" title="StrongSwan vs OpenSwan vs Libreswan"></a>StrongSwan vs OpenSwan vs Libreswan</h4><p>Libreswan是OpenSwan开发者因为商标问题新开发的开源VPN工具。</p>
+<ul>
+<li>StrongSwan has much more comprehensive and developed documentation than Libreswan.</li>
+<li>StrongSwan has support for EAP authentication methods, which make it easier to integrate into heterogeneous environments (such as authenticating to Active Directory). These are less well developed or even missing from Libreswan.</li>
+<li>StrongSwan can be clustered and load balanced. Libreswan does not seem to have any support to do either.</li>
+<li>Libreswan supports more hardware crypto accelerators than StrongSwan, but requires kernel patches to do so.</li>
+</ul>
+<h4 id="OpenSwan-roadwarrior-and-net2net"><a href="#OpenSwan-roadwarrior-and-net2net" class="headerlink" title="OpenSwan roadwarrior and net2net"></a>OpenSwan roadwarrior and net2net</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">config setup</span><br><span class="line">    dumpdir=/var/run/pluto/</span><br><span class="line">    nat_traversal=yes</span><br><span class="line">    virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v6:fd00::/8,%v6:fe80::/10</span><br><span class="line">    protostack=netkey</span><br><span class="line">    </span><br><span class="line">conn L2TP-PSK-NAT</span><br><span class="line">    rightsubnet=vhost:%priv</span><br><span class="line">    also=L2TP-PSK-noNAT</span><br><span class="line"></span><br><span class="line">conn L2TP-PSK-noNAT</span><br><span class="line">    authby=secret</span><br><span class="line">    pfs=no</span><br><span class="line">    auto=add</span><br><span class="line">    keyingtries=3</span><br><span class="line">    ikelifetime=8h</span><br><span class="line">    keylife=1h</span><br><span class="line">    type=transport</span><br><span class="line">    left=%SERVERIP%</span><br><span class="line">    leftprotoport=17/1701</span><br><span class="line">    right=%any</span><br><span class="line">    rightprotoport=17/%any</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">conn net-to-net </span><br><span class="line">    left=192.168.1.10              # LServer外网IP地址 </span><br><span class="line">    leftsubnet=10.10.10.0/24       # LServer内网IP段</span><br><span class="line">    leftrsasigkey=0sAQOBIJFmj…   # LServer的公钥 </span><br><span class="line">    leftnexthop=%defaultroute      # LServer的下一跳指定为默认路由地址 </span><br><span class="line">    right=192.168.1.20             # RServer外网IP地址 </span><br><span class="line">    rightsubnet=100.10.20.0/24      # RServer内网IP段</span><br><span class="line">    rightrsasigkey=0sAQNZZZjj…   # Rserver的公钥 </span><br><span class="line">    rightnexthop=%defaultroute     # RServer的下一跳指定为默认路由地址 </span><br><span class="line">    auto=start                     # 添加这个链接，启动时自动连接</span><br></pre></td></tr></table></figure>
+<h4 id="StrongSwan的HA模式"><a href="#StrongSwan的HA模式" class="headerlink" title="StrongSwan的HA模式"></a>StrongSwan的HA模式</h4><p>The roadwarriors carol and dave set up a connection each to the virtual gateway mars implemented by the two real gateways alice and moon in a High Availability (HA) setup based on ClusterIP. Depending on the hash of the IP addresses of the peers and the SPIs, the inbound and outbound CHILD_SAs are either assigned to segment 1 managed by alice or segment 2 handled by moon. The IKEv2 protocol is managed by moon exclusively with passive IKE_SAs installed on the backup gateway alice. </p>
+<p><img src="http://o7myibfc7.bkt.clouddn.com/strongswan.png" alt="StrongSwan的HA模式"></p>
+<h4 id="VPN链路聚合的两种方案"><a href="#VPN链路聚合的两种方案" class="headerlink" title="VPN链路聚合的两种方案"></a>VPN链路聚合的两种方案</h4><ul>
+<li>主要实现还是利用了<code>Netfilter HOOK</code></li>
+</ul>
+<p><img src="http://o7myibfc7.bkt.clouddn.com/vpn1.png" alt="《支持多路负载平衡的IPsec VPN 系统的设计与实现》"></p>
+<p><img src="http://o7myibfc7.bkt.clouddn.com/vpn2.png" alt="《高可用IPsec虚拟专用网研究》"></p>
+<hr>
+<h3 id="硬件问题"><a href="#硬件问题" class="headerlink" title="硬件问题"></a>硬件问题</h3><ul>
+<li>常见天线接头类型:</li>
+</ul>
+<p><img src="http://o7myibfc7.bkt.clouddn.com/TB29215.jpg?imageView2/3/w/300/h/150/q/90" alt="常见天线接头类型"></p>
+<hr>
+<h3 id="SIM7100拨号脚本"><a href="#SIM7100拨号脚本" class="headerlink" title="SIM7100拨号脚本"></a>SIM7100拨号脚本</h3><hr>
+<h3 id="OpenSwan源码解析"><a href="#OpenSwan源码解析" class="headerlink" title="OpenSwan源码解析"></a>OpenSwan源码解析</h3>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/04/reservoir-sampling/">蓄水池抽样证明以及例题</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/11/about-962-project/" data-id="cjdrh9k3e000gmct3nnm10a4g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GSM/">GSM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPsec/">IPsec</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LTE/">LTE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/10/15/make-a-change/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          做了一些改变
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2016/10/11/about-sublime/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">用到的sublime快捷键</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         

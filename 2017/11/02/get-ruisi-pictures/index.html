@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>睿思图片爬取实战（附代码） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言主要使用了Requests加Beautifulsoup，没有用Requests的session，选择了使用原始的get和post方法，爬取了约3.5G的睿思摄影板块图片。">
+<meta name="keywords" content="Python,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="睿思图片爬取实战（附代码）">
+<meta property="og:url" content="http://yoursite.com/2017/11/02/get-ruisi-pictures/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言主要使用了Requests加Beautifulsoup，没有用Requests的session，选择了使用原始的get和post方法，爬取了约3.5G的睿思摄影板块图片。">
+<meta property="og:image" content="http://o7myibfc7.bkt.clouddn.com/ruisi_page.jpg?imageView2/3/w/600/h/300/q/90">
+<meta property="og:image" content="http://o7myibfc7.bkt.clouddn.com/sheying_page.jpg?imageView2/3/w/600/h/300/q/90">
+<meta property="og:image" content="http://o7myibfc7.bkt.clouddn.com/ruisi_pictures.jpg?imageView2/3/w/600/h/300/q/90">
+<meta property="og:updated_time" content="2018-01-13T13:08:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="睿思图片爬取实战（附代码）">
+<meta name="twitter:description" content="前言主要使用了Requests加Beautifulsoup，没有用Requests的session，选择了使用原始的get和post方法，爬取了约3.5G的睿思摄影板块图片。">
+<meta name="twitter:image" content="http://o7myibfc7.bkt.clouddn.com/ruisi_page.jpg?imageView2/3/w/600/h/300/q/90">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-get-ruisi-pictures" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/02/get-ruisi-pictures/" class="article-date">
+  <time datetime="2017-11-02T07:24:46.000Z" itemprop="datePublished">2017-11-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Code/">Code</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      睿思图片爬取实战（附代码）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><h2 id="intro">前言</h2>主要使用了Requests加Beautifulsoup，没有用Requests的session，选择了使用原始的get和post方法，爬取了约3.5G的睿思摄影板块图片。<p></p>
+<a id="more"></a>
+<hr>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>什么是睿思？</p>
+<p>睿思: <a href="http://rs.xidian.edu.cn/forum.php" target="_blank" rel="noopener">http://rs.xidian.edu.cn/forum.php</a> 是西电校内最大的PT站，长这样：<br><img src="http://o7myibfc7.bkt.clouddn.com/ruisi_page.jpg?imageView2/3/w/600/h/300/q/90" alt="睿思主页"></p>
+<p>之前学习了<a href="http://docs.python-requests.org/zh_CN/latest/index.html" target="_blank" rel="noopener">Requests</a>库和<a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html#" target="_blank" rel="noopener">BeautifulSoup</a>库，已经可以爬取一些简单的网站了，选择睿思是因为不跑校外流量，爬取图片又相对简单易行，对于基本没看过python的我来说，比较现实。<br>最初是想爬取睿思的缘聚睿思板块，但图片太少，最终选择爬取摄影板块，长这样：<br><img src="http://o7myibfc7.bkt.clouddn.com/sheying_page.jpg?imageView2/3/w/600/h/300/q/90" alt="摄影主页"></p>
+<p>乍一看以为是瀑布流，实际分析过后就会发现瀑布最后刷新出来的其实是<code>page=2</code>，也就是说读取不同的page就可以抓取整个板块的照片了。</p>
+<p>为了防止抓到回复中的照片（感觉有点担忧过度，回复带的图片大多是论坛的静态图片），只抓取每个帖子第一楼的照片，然后将其输出到电脑保存。</p>
+<p>爬取结果，共3.5G，去除10K以下的无效图片，有2815张：</p>
+<p><img src="http://o7myibfc7.bkt.clouddn.com/ruisi_pictures.jpg?imageView2/3/w/600/h/300/q/90" alt="爬取结果"></p>
+<hr>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>详细代码请看gayhub：</p>
+<div class="github-widget" data-repo="cloisonne/Ruisi_Pic_Download"></div>
+
+
+
+<p><strong>formhash</strong>是后期发帖需要的一个值，这里一并获取：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getFormhash</span><span class="params">(self,url)</span>:</span></span><br><span class="line">    <span class="comment">#formhash_url = config.FORMHASHURL</span></span><br><span class="line">    formhash_text = self.getHTMLText(url)</span><br><span class="line">    formhash_soup = BeautifulSoup(formhash_text,<span class="string">'lxml'</span>)</span><br><span class="line">    formhash_tag = formhash_soup.find(<span class="string">'input'</span>,attrs=&#123;<span class="string">'name'</span>:<span class="string">'formhash'</span>&#125;)</span><br><span class="line">    formhash = formhash_tag(<span class="string">'value'</span>)</span><br><span class="line">    <span class="keyword">return</span> formhash</span><br></pre></td></tr></table></figure></p>
+<p><strong>cookies</strong>采用cookiejar：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.cookie = cookiejar.CookieJar()</span><br></pre></td></tr></table></figure></p>
+<p>为了保持登陆状态，需要一个全局cookies：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">global</span> cookies</span><br><span class="line">cookies = wb_data.cookies</span><br></pre></td></tr></table></figure></p>
+<p>获取的图片链接有所不同，需要进行选择处理：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> img_url_list:</span><br><span class="line">     <span class="keyword">if</span> i[<span class="number">0</span>] == <span class="string">'s'</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">elif</span> i[<span class="number">0</span>] == <span class="string">'h'</span>:</span><br><span class="line">        true_list.append(i)</span><br><span class="line">    <span class="keyword">elif</span> i[<span class="number">0</span>] == <span class="string">'.'</span>:</span><br><span class="line">        true_list.append(config.DOMAIN+i[<span class="number">2</span>:])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p>由于url中含有非法字符<code>?</code>，图片命名中利用该点特征，使用异常来保证输出图片的正确性：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(root):</span><br><span class="line">        os.mkdir(root)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(path):</span><br><span class="line">        r = requests.get(url,headers=self.headers, cookies=cookies)</span><br><span class="line">        <span class="keyword">with</span> open(path, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(r.content)</span><br><span class="line">            f.close()</span><br><span class="line">            print(path+<span class="string">'  succeed'</span>)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">"失败一次"</span>)   <span class="comment">#有url包含非法字符</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h3><ul>
+<li><p>最初是对discuz不了解，formhash和cookie比较麻烦，登陆状态的保持不知道如何做。</p>
+</li>
+<li><p>使用Requests的session更简单，不需要cookies和构造复杂header，事实上，get和post方法调用的是requests方法，而requests最终也是调用的session。</p>
+</li>
+<li><p>第一次完整的写python程序，结构有很大问题，总是想结构化，python还是代码越少越好。</p>
+</li>
+<li><p>下面开始学习scarpy，然后进行简单的多线程抓取。</p>
+</li>
+<li><p>对睿思的抓取继续下去的话可以抓发帖时间和发帖对象做用户行为分析。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/02/get-ruisi-pictures/" data-id="cjdrh9k3u001dmct3qlsgbq2j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/11/sumof-crawler/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python爬虫总结（附拉勾网多进程代理池爬虫）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/28/about-beautifulsoup/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python爬虫第二课-BeautifulSoup</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Code/">Code</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Codes/">Codes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Essays/">Essays</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kaggle/">Kaggle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Notes/">Notes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSM/">GSM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gnome3/">Gnome3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IPsec/">IPsec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LTE/">LTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Makefile/">Makefile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/">Socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sublime/">Sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/U-disk/">U-disk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VPN/">VPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XGBoost/">XGBoost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/storage/">storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扯淡/">扯淡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/GSM/" style="font-size: 10px;">GSM</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Gnome3/" style="font-size: 10px;">Gnome3</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/IPsec/" style="font-size: 10px;">IPsec</a> <a href="/tags/JAVA/" style="font-size: 10px;">JAVA</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LTE/" style="font-size: 10px;">LTE</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 12.5px;">Markdown</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Sublime/" style="font-size: 10px;">Sublime</a> <a href="/tags/System/" style="font-size: 10px;">System</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/U-disk/" style="font-size: 10px;">U-disk</a> <a href="/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a> <a href="/tags/VPN/" style="font-size: 12.5px;">VPN</a> <a href="/tags/XGBoost/" style="font-size: 10px;">XGBoost</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/storage/" style="font-size: 10px;">storage</a> <a href="/tags/扯淡/" style="font-size: 15px;">扯淡</a> <a href="/tags/爬虫/" style="font-size: 17.5px;">爬虫</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/17/hello-world/">Hello World 涂涂大人</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/12/auto-million-heroes/">百万英雄答题辅助(记一次成功的pull request)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/04/reservoir-sampling/">蓄水池抽样证明以及例题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/18/binary-tree/">关于二叉树的算法题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/16/dynamic-programming/">动态规划的三个例子</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

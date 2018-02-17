@@ -5,14 +5,19 @@
   
 
   
-  <title>Archives: 2018 | Hexo</title>
+  <title>Ubuntu开机登录界面死循环 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="前言关于Ubuntu 16.04突然无法开机，在登录界面进入死循环的解决方法。">
+<meta name="keywords" content="Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu开机登录界面死循环">
+<meta property="og:url" content="http://yoursite.com/2016/10/26/ubuntu-login-error/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言关于Ubuntu 16.04突然无法开机，在登录界面进入死循环的解决方法。">
+<meta property="og:updated_time" content="2018-01-13T13:08:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Ubuntu开机登录界面死循环">
+<meta name="twitter:description" content="前言关于Ubuntu 16.04突然无法开机，在登录界面进入死循环的解决方法。">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,78 +64,107 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/02/17/hello-world/" class="archive-article-date">
-  <time datetime="2018-02-17T09:07:04.383Z" itemprop="datePublished">Feb 17</time>
+        <section id="main"><article id="post-ubuntu-login-error" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/26/ubuntu-login-error/" class="article-date">
+  <time datetime="2016-10-26T12:25:40.000Z" itemprop="datePublished">2016-10-26</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Notes/">Notes</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/17/hello-world/">Hello World 涂涂大人</a>
+    <h1 class="article-title" itemprop="name">
+      Ubuntu开机登录界面死循环
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/12/auto-million-heroes/" class="archive-article-date">
-  <time datetime="2018-01-12T07:36:29.000Z" itemprop="datePublished">Jan 12</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/12/auto-million-heroes/">百万英雄答题辅助(记一次成功的pull request)</a>
-    </h1>
-  
+        <p></p><h2 id="intro">前言</h2>关于Ubuntu 16.04突然无法开机，在登录界面进入死循环的解决方法。<p></p>
+<a id="more"></a>
+<hr>
+<h3 id="处理过程"><a href="#处理过程" class="headerlink" title="处理过程"></a>处理过程</h3><p>首先，Ctrl+Alt+F1进入了命令行，试了一些重启命令无果，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service gdm3 restart</span><br></pre></td></tr></table></figure>
+<p>这里补充一下在控制台临时使用英文的命令（中文乱码）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LANG=C</span><br></pre></td></tr></table></figure>
+<p>随后remove了两个上次关机前安装的软件，还是无果。</p>
+<p>看网上这个问题出现的主要地方有以下：</p>
+<ul>
+<li>显卡驱动</li>
+<li>文件权限</li>
+<li>安装了一些冲突的软件</li>
+</ul>
+<p>各种无果后十分发狂，随后才查找到了原来登录失败会生成如下的log文件：</p>
+<p><code>/home/user/.xsession-errors</code></p>
+<p>主要的几行如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(WARN-6410 /build/fcitx-J2yftF/fcitx-4.2.9.1/src/lib/fcitx-config/fcitx-config.c:922) 配置项不合法:  行150 缺少&apos;=&apos;</span><br><span class="line">(WARN-6410 /build/fcitx-J2yftF/fcitx-4.2.9.1/src/module/dbus/dbusstuff.c:246) DBus Service Already Exists</span><br><span class="line">(ERROR-6410 /build/fcitx-J2yftF/fcitx-4.2.9.1/src/lib/fcitx/instance.c:440) Exiting.</span><br><span class="line">sogou-qimpanel-watchdog: Fatal IO error 11 (资源暂时不可用) on X server :0.</span><br></pre></td></tr></table></figure>
+<p>很显然，问题出在fcitx和sogou输入法中，卸载后重装，问题解决。</p>
+<hr>
+<h3 id="Ubuntu日志文件总结"><a href="#Ubuntu日志文件总结" class="headerlink" title="Ubuntu日志文件总结"></a>Ubuntu日志文件总结</h3><p><strong>Linux Log files and usage</strong></p>
+<p>=&gt; /var/log/messages : General log messages</p>
+<p>=&gt; /var/log/boot : System boot log</p>
+<p>=&gt; /var/log/debug : Debugging log messages</p>
+<p>=&gt; /var/log/auth.log : User login and authentication logs</p>
+<p>=&gt; /var/log/daemon.log : Running services such as squid, ntpd and others log message to this file</p>
+<p>=&gt; /var/log/dmesg : Linux kernel ring buffer log</p>
+<p>=&gt; /var/log/dpkg.log : All binary package log includes package installation and other information</p>
+<p>=&gt; /var/log/faillog : User failed login log file</p>
+<p>=&gt; /var/log/kern.log : Kernel log file</p>
+<p>=&gt; /var/log/lpr.log : Printer log file</p>
+<p>=&gt; /var/log/mail.* : All mail server message log files</p>
+<p>=&gt; /var/log/mysql.* : MySQL server log file</p>
+<p>=&gt; /var/log/user.log : All userlevel logs</p>
+<p>=&gt; /var/log/xorg.0.log : X.org log file</p>
+<p>=&gt; /var/log/apache2/* : Apache web server log files directory</p>
+<p>=&gt; /var/log/lighttpd/* : Lighttpd web server log files directory</p>
+<p>=&gt; /var/log/fsck/* : fsck command log</p>
+<p>=&gt; /var/log/apport.log : Application crash report / log file</p>
+<p><strong>shell下的命令</strong>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tail -f /var/log/apport.log</span><br><span class="line">more /var/log/xorg.0.log</span><br><span class="line">cat /var/log/mysql.err</span><br><span class="line">less /var/log/messages</span><br><span class="line">grep -i fail /var/log/boot</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/04/reservoir-sampling/" class="archive-article-date">
-  <time datetime="2018-01-04T13:44:51.000Z" itemprop="datePublished">Jan 4</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/04/reservoir-sampling/">蓄水池抽样证明以及例题</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/26/ubuntu-login-error/" data-id="cjdrh9k3e000lmct3g55585xt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/10/26/find-2nd-max-num/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          无序数组中找到第二大的数
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2016/10/15/make-a-change/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">做了一些改变</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         

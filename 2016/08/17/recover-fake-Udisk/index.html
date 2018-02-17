@@ -5,14 +5,21 @@
   
 
   
-  <title>Archives: 2018 | Hexo</title>
+  <title>无法识别主控的情况下如何“软修复”一个扩容U盘 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="前言家中找到了一个假的金士顿扩容盘，表面容量是32G，实际只有8G，最关键的是存储资料常常丢失。原本恢复很简单，量产即可，但该盘主控不可识别，比较麻烦。">
+<meta name="keywords" content="U-disk,storage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无法识别主控的情况下如何“软修复”一个扩容U盘">
+<meta property="og:url" content="http://yoursite.com/2016/08/17/recover-fake-Udisk/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言家中找到了一个假的金士顿扩容盘，表面容量是32G，实际只有8G，最关键的是存储资料常常丢失。原本恢复很简单，量产即可，但该盘主控不可识别，比较麻烦。">
+<meta property="og:image" content="http://o7myibfc7.bkt.clouddn.com/2140772-b83693a38bed10f2.jpg">
+<meta property="og:updated_time" content="2018-01-13T13:08:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="无法识别主控的情况下如何“软修复”一个扩容U盘">
+<meta name="twitter:description" content="前言家中找到了一个假的金士顿扩容盘，表面容量是32G，实际只有8G，最关键的是存储资料常常丢失。原本恢复很简单，量产即可，但该盘主控不可识别，比较麻烦。">
+<meta name="twitter:image" content="http://o7myibfc7.bkt.clouddn.com/2140772-b83693a38bed10f2.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,78 +66,122 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/02/17/hello-world/" class="archive-article-date">
-  <time datetime="2018-02-17T09:07:04.383Z" itemprop="datePublished">Feb 17</time>
+        <section id="main"><article id="post-recover-fake-Udisk" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/17/recover-fake-Udisk/" class="article-date">
+  <time datetime="2016-08-17T03:12:21.000Z" itemprop="datePublished">2016-08-17</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Notes/">Notes</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/17/hello-world/">Hello World 涂涂大人</a>
+    <h1 class="article-title" itemprop="name">
+      无法识别主控的情况下如何“软修复”一个扩容U盘
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/12/auto-million-heroes/" class="archive-article-date">
-  <time datetime="2018-01-12T07:36:29.000Z" itemprop="datePublished">Jan 12</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/12/auto-million-heroes/">百万英雄答题辅助(记一次成功的pull request)</a>
-    </h1>
-  
+        <p></p><h2 id="intro">前言</h2>家中找到了一个假的金士顿扩容盘，表面容量是32G，实际只有8G，最关键的是存储资料常常丢失。原本恢复很简单，量产即可，但该盘主控不可识别，比较麻烦。<p></p>
+<a id="more"></a>
+<h3 id="如何知道是扩容盘？"><a href="#如何知道是扩容盘？" class="headerlink" title="如何知道是扩容盘？"></a>如何知道是扩容盘？</h3><ul>
+<li><p>使用<strong>MyDiskTestV2.98</strong>，这里注意MyDiskTest号称自带软修复，但在WIN7以上系统中无法使用，我特意换了XP系统进行了测试，答案是也不能用。</p>
+</li>
+<li><p>什么是软修复？</p>
+</li>
+</ul>
+<blockquote>
+<p>对于扩容的那一部分，使用数据文件填充，然后只读隐藏，你的U盘就变成了32G容量，8G可用。因为这8G并不包括扩容的那一部分，所以可以正常存取，文件不会损坏。</p>
+</blockquote>
+<hr>
+<h3 id="最常规的思路"><a href="#最常规的思路" class="headerlink" title="最常规的思路"></a>最常规的思路</h3><ul>
+<li>针对扩容盘，最常规的思路就是识别主控型号，查找相应的量产工具，然后重新进行量产，这里识别主控型号用到的工具主要有两个：</li>
+</ul>
+<ol>
+<li>ChipGenius</li>
+<li>ChipEasy</li>
+</ol>
+<ul>
+<li>二者效果差不多，主要注意版本不要太旧，否则无法识别新的主控型号。识别的结果如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">设备制造商:  General</span><br><span class="line">设备型号  :  UDisk</span><br><span class="line">当前协议  :  USB2.0</span><br><span class="line">输入电流  :  100mA</span><br><span class="line">分区系统  :  FAT32                    是否激活  :  是</span><br><span class="line">是否对齐  :  32 KB 已扇区对齐</span><br><span class="line">芯片制造商:  芯邦(Chipsbank)</span><br><span class="line">芯片型号  :  CBMeneral</span><br></pre></td></tr></table></figure>
+<ul>
+<li>WTF？芯片型号被谁吃了？<strong>试过最新版本的多种识别软件均无果</strong>。不过幸好我们知道了是芯邦的芯片，具体主控型号位置。果断拆机，拆机后如图：</li>
+</ul>
+<p><img src="http://o7myibfc7.bkt.clouddn.com/2140772-b83693a38bed10f2.jpg" alt="U盘拆解图"></p>
+<ul>
+<li>在芯片背面看到了YHFL92098E-8GB1410，很显然这是8GB的芯邦2098E主控，寻找量产工具，但是尝试了如下工具无果，<strong>无法识别U盘</strong>。</li>
+</ul>
+<ol>
+<li>APToolV5533</li>
+<li>CBM2098_APToolV6006</li>
+<li>UMPTool_V7000</li>
+<li>UmpTool6003</li>
+</ol>
+<hr>
+<h3 id="diskgenius分区解决"><a href="#diskgenius分区解决" class="headerlink" title="diskgenius分区解决"></a>diskgenius分区解决</h3><ul>
+<li><p>在使用MyDiskTest的时候，发现32G空间的前8G是可用的空间，扩容的是之后的空间，既然软件没有提供软修复，那么干脆分区好了，因为分区是从0开始按照扇区号开始的。</p>
+</li>
+<li><p>使用DiskGenius进行分区，随便分出了7.6G的空间（8G=8000M），剩下的分区进行隐藏。</p>
+</li>
+</ul>
+<blockquote>
+<p>这样就完成了一个扩容U盘的软修复，当然在能够量产的前提下还是进行量产吧。</p>
+</blockquote>
+<hr>
+<h3 id="所用的软件集合（百度云外链）"><a href="#所用的软件集合（百度云外链）" class="headerlink" title="所用的软件集合（百度云外链）"></a>所用的软件集合（百度云外链）</h3><blockquote>
+<p>pass</p>
+</blockquote>
+<hr>
+<h3 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h3><ol>
+<li><strong>优盘之家</strong>: <a href="http://www.upan.cc/" target="_blank" rel="noopener">http://www.upan.cc/</a> </li>
+<li><strong>U盘量产网</strong>: <a href="http://www.upantool.com/" target="_blank" rel="noopener">http://www.upantool.com/</a></li>
+</ol>
+<hr>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/04/reservoir-sampling/" class="archive-article-date">
-  <time datetime="2018-01-04T13:44:51.000Z" itemprop="datePublished">Jan 4</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/04/reservoir-sampling/">蓄水池抽样证明以及例题</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/17/recover-fake-Udisk/" data-id="cjdrh9k2y000amct3k1t2y24m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/U-disk/">U-disk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/storage/">storage</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/25/sumof_gpt_mbr/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          对于GPT和MBR系统引导的学习
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2016/08/14/about-Ubuntu-linux/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用Ubuntu系统中遇到的问题</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
